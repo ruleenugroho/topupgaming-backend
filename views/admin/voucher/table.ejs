@@ -1,0 +1,64 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Nama game</th>
+      <th>Kategori</th>
+      <th>Nominal</th>
+      <th>Status</th>
+      <th>Gambar</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% voucher.forEach(voucher=> { %>
+    <tr>
+      <td><%- voucher.id %></td>
+      <td><%- voucher.name %></td>
+      <td><%- voucher.category.name %></td>
+      <td>
+        <% voucher.nominals.forEach(voucherNominal=> { %>
+        <span class="badge badge-warning">
+          <%- voucherNominal.coinName %> <%- voucherNominal.price %>
+        </span>
+        <% }); %>
+      </td>
+      <td>
+        <% if (voucher.status === "Y") { %>
+        <span class="badge badge-success">Aktif</span>
+        <% } else { %>
+        <span class="badge badge-danger">Tidak Aktif</span>
+        <% } %>
+      </td>
+      <td>
+        <img src="uploads/<%- voucher.thumbnail %>" width="10%" height="10%" />
+      </td>
+      <td>
+        <form
+          action="/voucher/<%- voucher._id %>/editStatus?_method=PUT"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="btn btn-primary btn-sm">
+            <i class="fas fa-folder"></i>
+            <% if (voucher.status === "Y") { %> Matikan <% } else { %> Hidupkan
+            <% } %>
+          </button>
+        </form>
+        <a href="/voucher/<%= voucher.id %>/edit" class="btn btn-info btn-sm"
+          ><i class="fas fa-pencil-alt"></i> Edit</a
+        >
+        <form
+          action="/voucher/<%= voucher.id %>/delete?_method=DELETE"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>

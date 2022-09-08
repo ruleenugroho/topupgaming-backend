@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ../../partials/header.ejs %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Preloader -->
+      <div
+        class="preloader flex-column justify-content-center align-items-center"
+      >
+        <img
+          class="animation__shake"
+          src="/adminlte/dist/img/AdminLTELogo.png"
+          alt="AdminLTELogo"
+          height="60"
+          width="60"
+        />
+      </div>
+
+      <%- include ../../partials/navbar.ejs %> <%- include
+      ../../partials/sidebar.ejs %>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Bank</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item">
+                    <a href="/bank">Bank</a>
+                  </li>
+                  <li class="breadcrumb-item active">Ubah</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <!-- /.card -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Form ubah bank <%- bank.name %></h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form
+                    action="/bank/<%- bank._id %>/edit?_method=PUT"
+                    method="POST"
+                  >
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="bankName">Nama bank</label>
+                        <select
+                          name="bankName"
+                          class="form-control select2"
+                          style="width: 100%"
+                        >
+                          <option selected="selected">Pilih bank</option>
+                          <option value="Muamalat" <% if(bank.bankName === "Muamalat") { %> selected <% } %>>Muamalat</option>
+                          <option value="BSI" <% if(bank.bankName === "BSI") { %> selected <% } %>>BSI</option>
+                          <option value="BCA" <% if(bank.bankName === "BCA") { %> selected <% } %>>BCA</option>
+                          <option value="BRI" <% if(bank.bankName === "BRI") { %> selected <% } %>>BRI</option>
+                          <option value="BNI" <% if(bank.bankName === "BNI") { %> selected <% } %>>BNI</option>
+                          <option value="Mandiri" <% if(bank.bankName === "Mandiri") { %> selected <% } %>>Mandiri</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="name">Nama pemilik</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="name"
+                          id="name"
+                          value="<%- bank.name %>"
+                          placeholder="Masukan nama pemilik"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="noRekening">Nomor rekening</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="noRekening"
+                          id="noRekening"
+                          value="<%- bank.noRekening %>"
+                          placeholder="Masukan nomor rekening"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary">
+                        Simpan
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+
+      <%- include ../../partials/footer.ejs %>
+    </div>
+
+    <%- include ../../partials/js.ejs %>
+  </body>
+</html>

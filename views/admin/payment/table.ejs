@@ -1,0 +1,58 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Tipe pembayaran</th>
+      <th>Bank</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% payment.forEach(payment => { %>
+    <tr>
+      <td><%= payment.id %></td>
+      <td><%= payment.type %></td>
+      <td>
+        <% payment.banks.forEach(bank => { %>
+        <span class="badge badge-warning">
+          <%= bank.bankName %> - <%= bank.name %> - <%= bank.noRekening %>
+        </span>
+        <% }); %>
+      </td>
+      <td>
+        <% if (payment.status === "Y") { %>
+        <span class="badge badge-success">Aktif</span>
+        <% } else { %>
+        <span class="badge badge-danger">Tidak Aktif</span>
+        <% } %>
+      </td>
+      <td>
+        <form
+          action="/payment/<%- payment._id %>/editStatus?_method=PUT"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="btn btn-primary btn-sm">
+            <i class="fas fa-folder"></i>
+            <% if (payment.status === "Y") { %> Matikan <% } else { %> Hidupkan
+            <% } %>
+          </button>
+        </form>
+        <a href="/payment/<%= payment.id %>/edit" class="btn btn-info btn-sm"
+          ><i class="fas fa-pencil-alt"></i> Edit</a
+        >
+        <form
+          action="/payment/<%= payment.id %>/delete?_method=DELETE"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
